@@ -1,0 +1,125 @@
+---
+// CSS cascade order mirrors the Webflow export:
+// normalize -> webflow utilities (.w-*) -> custom Client-First -> page embeds (win last).
+import '../styles/normalize.css';
+import '../styles/components.css';
+import '../styles/teatralna.css';
+import '../styles/custom-embeds.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description = '',
+  image = '/images/header-image.webp',
+  noindex = false,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL(image, Astro.site).href;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ApartmentComplex',
+  name: 'Teatralna Park Residence',
+  description,
+  url: Astro.site?.href,
+  image: ogImage,
+  numberOfAccommodationUnits: 277,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'София',
+    addressRegion: 'Оборище',
+    addressCountry: 'BG',
+  },
+  developer: {
+    '@type': 'Organization',
+    name: 'Sky Holding',
+    telephone: '+359875363355',
+  },
+};
+---
+
+<!doctype html>
+<html lang="bg">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex,nofollow" />}
+    <meta name="theme-color" content="#3C5FA0" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Teatralna Park Residence" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="bg_BG" />
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Adobe Fonts (Typekit) — kept per licensing -->
+    <link rel="preconnect" href="https://use.typekit.net" crossorigin />
+    <link rel="stylesheet" href="https://use.typekit.net/idk5eks.css" />
+    <script is:inline src="https://use.typekit.net/idk5eks.js"></script>
+    <script is:inline>try { Typekit.load(); } catch (e) {}</script>
+    <script is:inline>
+      !function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);
+    </script>
+
+    <!-- Favicons -->
+    <link href="/images/favicon.png" rel="icon" type="image/png" sizes="32x32" media="(prefers-color-scheme: light)" />
+    <link href="/images/favicon-dark.png" rel="icon" type="image/png" sizes="32x32" media="(prefers-color-scheme: dark)" />
+    <link href="/images/favicon-48.png" rel="icon" type="image/png" sizes="48x48" />
+    <link href="/images/webclip-180.png" rel="apple-touch-icon" sizes="180x180" />
+    <link href="/images/webclip-192.png" rel="icon" type="image/png" sizes="192x192" />
+    <link href="/images/webclip.png" rel="icon" type="image/png" sizes="512x512" />
+
+    <link rel="preload" as="image" href="/images/header-image.webp" fetchpriority="high" />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    <!-- Meta Pixel -->
+    <script is:inline>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '977016484922351');
+      fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=977016484922351&ev=PageView&noscript=1" /></noscript>
+
+    <!-- Google Tag Manager -->
+    <script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-KNWQ7KNQ');</script>
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KNWQ7KNQ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+    <slot />
+
+    <script>
+      import '../scripts/main.js';
+    </script>
+  </body>
+</html>

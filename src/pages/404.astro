@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout title="Страницата не е намерена — Teatralna Park Residence" description="Страницата, която търсите, не съществува." noindex={true}>
+  <div class="page-wrapper">
+    <Nav />
+    <main class="main-wrapper">
+      <section class="section">
+        <div class="padding-global">
+          <div class="container-large">
+            <div class="padding-section-xlarge">
+              <div class="text-align-center">
+                <div class="margin-bottom margin-small">
+                  <h1>404</h1>
+                </div>
+                <div class="margin-bottom margin-medium">
+                  <div class="max-width-medium align-center">
+                    <p class="text-size-medium">Страницата, която търсите, не съществува или е преместена.</p>
+                  </div>
+                </div>
+                <a href="/" class="button w-button">Към началната страница</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <Footer />
+  </div>
+</BaseLayout>

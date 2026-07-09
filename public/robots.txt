@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://teatralna-oborishte.com/sitemap-index.xml

@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import mainHtml from '../html/home-main.html?raw';
+
+const title = 'Teatralna Park Residence - апартаменти в центъра на София';
+const description =
+  'Teatralna Park Residence е нов затворен комплекс в артистичния ъгъл на центъра. В близост до парк Заимов, Teatralna Park Residence разполага с 277 модерни и просторни апартамента, подземни паркинги, супермаркет, ресторант, кафене, фитнес на два етажа и търговски площи на приземно ниво. Вътрешен парк с терасовидни градини, детска площадка, модерни и удобни общи площи.';
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="page-wrapper">
+    <Nav />
+    <Fragment set:html={mainHtml} />
+    <Footer />
+  </div>
+</BaseLayout>

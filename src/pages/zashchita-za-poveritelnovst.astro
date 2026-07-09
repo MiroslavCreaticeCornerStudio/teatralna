@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import mainHtml from '../html/privacy-main.html?raw';
+
+const title = 'Защита на личните данни — Teatralna Park Residence';
+const description =
+  'Политика за защита на личните данни на Teatralna Park Residence.';
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="page-wrapper">
+    <Nav />
+    <Fragment set:html={mainHtml} />
+    <Footer />
+  </div>
+</BaseLayout>
