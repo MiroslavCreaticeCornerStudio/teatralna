@@ -921,6 +921,25 @@ function initAdvancedFormValidation() {
 // (First-Name, Last-Name, email, Phone, Terms-Conditions + utm_* hidden fields).
 // >>> Confirm these key names match what https://skyguru.ai expects. <<<
 const CRM_ENDPOINT = 'https://skyguru.ai/api/v1/public/leads';
+// Same-origin serverless proxy that adds the contact to Brevo (list 14).
+// The Brevo API key lives server-side only — see api/subscribe.js.
+const BREVO_ENDPOINT = '/api/subscribe';
+
+// Fire-and-forget: add the contact to Brevo. Never blocks the CRM lead or the
+// success message — a Brevo failure is logged and swallowed.
+function sendToBrevo(payload) {
+  fetch(BREVO_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      email: payload.email,
+      firstName: payload['First-Name'],
+      lastName: payload['Last-Name'],
+      phone: payload.Phone,
+    }),
+  }).catch((err) => console.error('Brevo subscribe failed:', err));
+}
+
 function initCrmSubmit() {
   const form = document.querySelector('#wf-form-Contact-Form');
   if (!form) return;
@@ -936,6 +955,8 @@ function initCrmSubmit() {
     const fbp = readCookie('_fbp');
     if (fbc) payload.fbc = fbc;
     if (fbp) payload.fbp = fbp;
+    // Add the contact to Brevo in parallel (best-effort).
+    sendToBrevo(payload);
     const origVal = submitBtn ? submitBtn.value : null;
     if (submitBtn) submitBtn.value = submitBtn.getAttribute('data-wait') || submitBtn.value;
     try {
