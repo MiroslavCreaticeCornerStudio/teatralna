@@ -957,13 +957,25 @@ function initCrmSubmit() {
     if (fbp) payload.fbp = fbp;
     // Add the contact to Brevo in parallel (best-effort).
     sendToBrevo(payload);
+    // Map the Webflow field names to what the Skyguru CRM expects.
+    // The CRM requires a lowercase `phone`; it also stores name/email.
+    const firstName = payload['First-Name'] || '';
+    const lastName = payload['Last-Name'] || '';
+    const crmPayload = {
+      ...payload,
+      name: [firstName, lastName].filter(Boolean).join(' '),
+      first_name: firstName,
+      last_name: lastName,
+      email: payload.email,
+      phone: (payload.Phone || '').trim(),
+    };
     const origVal = submitBtn ? submitBtn.value : null;
     if (submitBtn) submitBtn.value = submitBtn.getAttribute('data-wait') || submitBtn.value;
     try {
       const res = await fetch(CRM_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(crmPayload),
       });
       if (!res.ok) throw new Error('Lead endpoint returned ' + res.status);
       form.style.display = 'none';
