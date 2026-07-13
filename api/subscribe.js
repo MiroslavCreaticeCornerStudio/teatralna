@@ -35,7 +35,7 @@ export default async function handler(req, res) {
   if (!apiKey) {
     return res.status(500).json({ error: 'brevo_not_configured' });
   }
-  const listId = Number(process.env.BREVO_LIST_ID || 14);
+  const listId = Number(process.env.BREVO_LIST_ID || 15);
 
   try {
     const body =
