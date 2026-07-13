@@ -13,8 +13,8 @@ export default defineConfig({
   compressHTML: true,
   integrations: [
     sitemap({
-      // Keep error pages (401/404) out of the sitemap.
-      filter: (page) => !/\/(401|404)\/?$/.test(page),
+      // Keep error pages (401/404) and the noindex thank-you page out of the sitemap.
+      filter: (page) => !/\/(401|404|thank-you)\/?$/.test(page),
     }),
   ],
 });

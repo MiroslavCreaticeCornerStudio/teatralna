@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout
+  title="Благодарим ви! — Teatralna Park Residence"
+  description="Вашето запитване беше изпратено успешно. Наш консултант ще се свърже с вас възможно най-скоро."
+  noindex={true}
+>
+  <div class="page-wrapper">
+    <Nav />
+    <main class="main-wrapper">
+      <section class="section">
+        <div class="padding-global">
+          <div class="container-large">
+            <div class="padding-section-xlarge">
+              <div class="text-align-center">
+                <div class="margin-bottom margin-small">
+                  <div class="max-width-large align-center">
+                    <h1>Благодарим ви!</h1>
+                  </div>
+                </div>
+                <div class="margin-bottom margin-medium">
+                  <div class="max-width-medium align-center">
+                    <p class="text-size-medium text-color-secondary">
+                      Вашето запитване беше изпратено успешно. Наш консултант ще се
+                      свърже с вас възможно най-скоро.
+                    </p>
+                  </div>
+                </div>
+                <a href="/" class="button w-button">Към началната страница</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <Footer />
+  </div>
+</BaseLayout>

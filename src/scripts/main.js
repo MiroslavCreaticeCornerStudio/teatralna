@@ -931,6 +931,7 @@ function sendToBrevo(payload) {
   fetch(BREVO_ENDPOINT, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
+    keepalive: true, // survive the redirect to /thank-you
     body: JSON.stringify({
       email: payload.email,
       firstName: payload['First-Name'],
@@ -978,10 +979,12 @@ function initCrmSubmit() {
         body: JSON.stringify(crmPayload),
       });
       if (!res.ok) throw new Error('Lead endpoint returned ' + res.status);
-      form.style.display = 'none';
-      if (done) done.style.display = 'block';
       if (fail) fail.style.display = 'none';
       form.reset();
+      // Send the user to the thank-you page (also a clean conversion pageview
+      // for GTM / Google Ads / Meta).
+      window.location.assign('/thank-you');
+      return;
     } catch (err) {
       console.error('Lead submission failed:', err);
       if (fail) fail.style.display = 'block';
