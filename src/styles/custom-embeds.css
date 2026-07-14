@@ -322,3 +322,8 @@ body {
   pointer-events: none;
 }
 
+/* Hide the secondary "represented by beSOLD" logo (nav + footer). */
+.mega-nav_logo-embed.is-taller {
+  display: none;
+}
+
