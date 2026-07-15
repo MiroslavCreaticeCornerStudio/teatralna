@@ -969,7 +969,11 @@ function initCrmSubmit() {
       last_name: lastName,
       email: payload.email,
       phone: (payload.Phone || '').trim(),
+      // Always tag the lead with the correct form name.
+      form_name: 'Театрална Home2U',
     };
+    // We do not send the landing page to the CRM.
+    delete crmPayload.landing_page;
     const origVal = submitBtn ? submitBtn.value : null;
     if (submitBtn) submitBtn.value = submitBtn.getAttribute('data-wait') || submitBtn.value;
     try {
