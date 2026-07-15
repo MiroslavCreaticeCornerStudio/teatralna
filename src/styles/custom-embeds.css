@@ -332,6 +332,6 @@ body {
    top isn't hidden under the fixed header (esp. on mobile, where the form
    stacks below the contact heading). */
 #contact-form {
-  scroll-margin-top: calc(var(--nav-height) + 2rem);
+  scroll-margin-top: calc(var(--nav-height) + 2rem + 80px);
 }
 
