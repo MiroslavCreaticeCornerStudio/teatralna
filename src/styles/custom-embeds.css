@@ -331,7 +331,10 @@ body {
 /* CTA buttons jump straight to the form. Offset the anchor so the form's
    top isn't hidden under the fixed header (esp. on mobile, where the form
    stacks below the contact heading). */
+/* Fixed header is 72px. Offset the anchor jump so the form heading + fields
+   sit clearly below it (use a literal value — --nav-height is only defined on
+   the nav element, so calc(var(--nav-height)) resolves to invalid here). */
 #contact-form {
-  scroll-margin-top: calc(var(--nav-height) + 2rem + 80px);
+  scroll-margin-top: 120px;
 }
 
